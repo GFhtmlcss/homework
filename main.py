@@ -28,25 +28,25 @@ class Display(QWidget):
         # self.setLayout(layoutText)
 
 
-        # второе дз. статус: баги: с кнопкой 'картинка'
+        # второе дз. статус: НЕ СДЕЛАНО
         # layout= QHBoxLayout()
         # layoutpicture = QVBoxLayout()
         # layout.addWidget(QPushButton('папка'), alignment=Qt.AlignTop)
-        # 
+        #
         # layoutpicture.addWidget(QPushButton('картинка'))
         # layout.addLayout(layoutpicture)
-        # 
+        #
         # layout.addWidget(QPushButton('лево'), alignment=Qt.AlignBottom)
         # layout.addWidget(QPushButton('право'), alignment=Qt.AlignBottom)
         # layout.addWidget(QPushButton('зеркало'), alignment=Qt.AlignBottom)
         # layout.addWidget(QPushButton('резкость'), alignment=Qt.AlignBottom)
         # layout.addWidget(QPushButton('ч/б'), alignment=Qt.AlignBottom)
-        # 
+        #
         # self.setLayout(layout)
 
 
         #третье дз.  статус: ПОЛНОСТЬЮ ВЫПОЛНЕНО
-        # layout = QGridLayout()
+        layout = QGridLayout()
         #
         # layout.addWidget(QPushButton('00'), 0, 0)
         # layout.addWidget(QPushButton('01'), 0, 1)
@@ -78,7 +78,22 @@ class Display(QWidget):
         # layout.addWidget(QPushButton('43'), 4, 3)
         # layout.addWidget(QPushButton('44'), 4, 4)
 
-        # self.setLayout(layout)
+        whilecheck = 0
+        num_1 = 0
+        num_2 = 0
+        number = str(whilecheck)
+        while whilecheck < 45:
+            layout.addWidget(QPushButton(number), num_1, num_2)
+            whilecheck += 1
+            number = str(whilecheck)
+            num_2 += 1
+            if whilecheck % 5 == 0:
+                whilecheck += 5
+                number = str(whilecheck)
+                num_1 += 1
+                num_2 = 0
+
+        self.setLayout(layout)
 
 app = QApplication(sys.argv)
 display = Display()
