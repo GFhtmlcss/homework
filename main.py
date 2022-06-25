@@ -1,101 +1,133 @@
 import sys
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QPushButton, QWidget, QLabel
+from PyQt5.QtWidgets import QApplication, QPushButton, QWidget, QLabel, QSizePolicy
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QFont
 
 from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout, QFormLayout
 
-
-class Display(QWidget):
+class Calculator(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle('homework layout')
-        self.setGeometry(150, 150, 1000, 400)
+        self.setWindowTitle('Калькулятор')
 
-        #первое дз. статус: баги: текст не по середине
-        # self.text = QtWidgets.QLabel(self)
-        # self.text.setText('Млекопитающие с самыми большими ушами - слоны?')
-        #
-        # layoutText = QHBoxLayout()
-        # layoutText.addWidget(self.text, alignment=Qt.AlignCenter)
-        # layoutH = QHBoxLayout()
-        # layoutH.addWidget(QPushButton('да!'), alignment=Qt.AlignBottom)
-        # layoutH.addWidget(QPushButton('нет!'), alignment=Qt.AlignBottom)
-        #
-        # layoutText.addLayout(layoutH)
-        # self.setLayout(layoutText)
-
-
-        # второе дз. статус: НЕ СДЕЛАНО
-        # layout= QHBoxLayout()
-        # layoutpicture = QVBoxLayout()
-        # layout.addWidget(QPushButton('папка'), alignment=Qt.AlignTop)
-        #
-        # layoutpicture.addWidget(QPushButton('картинка'))
-        # layout.addLayout(layoutpicture)
-        #
-        # layout.addWidget(QPushButton('лево'), alignment=Qt.AlignBottom)
-        # layout.addWidget(QPushButton('право'), alignment=Qt.AlignBottom)
-        # layout.addWidget(QPushButton('зеркало'), alignment=Qt.AlignBottom)
-        # layout.addWidget(QPushButton('резкость'), alignment=Qt.AlignBottom)
-        # layout.addWidget(QPushButton('ч/б'), alignment=Qt.AlignBottom)
-        #
-        # self.setLayout(layout)
-
-
-        #третье дз.  статус: ПОЛНОСТЬЮ ВЫПОЛНЕНО
         layout = QGridLayout()
-        #
-        # layout.addWidget(QPushButton('00'), 0, 0)
-        # layout.addWidget(QPushButton('01'), 0, 1)
-        # layout.addWidget(QPushButton('02'), 0, 2)
-        # layout.addWidget(QPushButton('03'), 0, 3)
-        # layout.addWidget(QPushButton('04'), 0, 4)
-        #
-        # layout.addWidget(QPushButton('10'), 1, 0)
-        # layout.addWidget(QPushButton('11'), 1, 1)
-        # layout.addWidget(QPushButton('12'), 1, 2)
-        # layout.addWidget(QPushButton('13'), 1, 3)
-        # layout.addWidget(QPushButton('14'), 1, 4)
-        #
-        # layout.addWidget(QPushButton('20'), 2, 0)
-        # layout.addWidget(QPushButton('21'), 2, 1)
-        # layout.addWidget(QPushButton('22'), 2, 2)
-        # layout.addWidget(QPushButton('23'), 2, 3)
-        # layout.addWidget(QPushButton('24'), 2, 4)
-        #
-        # layout.addWidget(QPushButton('30'), 3, 0)
-        # layout.addWidget(QPushButton('31'), 3, 1)
-        # layout.addWidget(QPushButton('32'), 3, 2)
-        # layout.addWidget(QPushButton('33'), 3, 3)
-        # layout.addWidget(QPushButton('34'), 3, 4)
-        #
-        # layout.addWidget(QPushButton('40'), 4, 0)
-        # layout.addWidget(QPushButton('41'), 4, 1)
-        # layout.addWidget(QPushButton('42'), 4, 2)
-        # layout.addWidget(QPushButton('43'), 4, 3)
-        # layout.addWidget(QPushButton('44'), 4, 4)
 
-        whilecheck = 0
-        num_1 = 0
-        num_2 = 0
-        number = str(whilecheck)
-        while whilecheck < 45:
-            layout.addWidget(QPushButton(number), num_1, num_2)
-            whilecheck += 1
-            number = str(whilecheck)
-            num_2 += 1
-            if whilecheck % 5 == 0:
-                whilecheck += 5
-                number = str(whilecheck)
-                num_1 += 1
-                num_2 = 0
+        #цифры
+        self.text = QtWidgets.QLabel(self)
+        self.text.setText('0')
+        self.text.setFont(QFont('Arial', 13))
+
+        layout.addWidget(self.text, 0, 0, 1, 4, alignment=Qt.AlignRight)
+
+        btn7 = QPushButton('7')
+        btn7.clicked.connect(self.set_symbol(btn7.text()))
+        btn8 = QPushButton('8')
+        btn8.clicked.connect(self.set_symbol(btn8.text()))
+        btn9 = QPushButton('9')
+        btn9.clicked.connect(self.set_symbol(btn9.text()))
+
+        btn4 = QPushButton('4')
+        btn4.clicked.connect(self.set_symbol(btn4.text()))
+        btn5 = QPushButton('5')
+        btn5.clicked.connect(self.set_symbol(btn5.text()))
+        btn6 = QPushButton('6')
+        btn6.clicked.connect(self.set_symbol(btn6.text()))
+
+        btn1 = QPushButton('1')
+        btn1.clicked.connect(self.set_symbol(btn1.text()))
+        btn2 = QPushButton('2')
+        btn2.clicked.connect(self.set_symbol(btn2.text()))
+        btn3 = QPushButton('3')
+        btn3.clicked.connect(self.set_symbol(btn3.text()))
+
+        btn0 = QPushButton('0')
+        btn0.clicked.connect(self.set_symbol(btn0.text()))
+
+        layout.addWidget(btn7, 2, 0)
+        layout.addWidget(btn8, 2, 1)
+        layout.addWidget(btn9, 2, 2)
+
+        layout.addWidget(btn4, 3, 0)
+        layout.addWidget(btn5, 3, 1)
+        layout.addWidget(btn6, 3, 2)
+
+        layout.addWidget(btn1, 4, 0)
+        layout.addWidget(btn2, 4, 1)
+        layout.addWidget(btn3, 4, 2)
+
+        layout.addWidget(btn0, 5, 2)
+
+        #операции
+        operations = ['+', '-', '*', '/', '%']
+
+        btnplus = QPushButton('+')
+        btnplus.clicked.connect(self.set_symbol(btnplus.text()))
+        btnminus = QPushButton('-')
+        btnminus.clicked.connect(self.set_operation(btnminus.text()))
+
+        btnmnozh = QPushButton('*')
+        btnmnozh.clicked.connect(self.set_symbol(btnmnozh.text()))
+        btndelen = QPushButton('/')
+        btndelen.clicked.connect(self.set_symbol(btndelen.text()))
+
+        btnproc = QPushButton('%')
+        btnproc.clicked.connect(self.set_symbol(btnproc.text()))
+
+        btnstart = QPushButton('(')
+        btnstart.clicked.connect(self.set_symbol(btnstart.text()))
+        btnend = QPushButton(')')
+        btnend.clicked.connect(self.set_symbol(btnend.text()))
+
+        layout.addWidget(btnplus, 2, 3)
+        layout.addWidget(btnminus, 3, 3)
+
+        layout.addWidget(btnmnozh, 1, 0)
+        layout.addWidget(btndelen, 1, 1)
+
+        layout.addWidget(btnproc, 1, 2)
+
+        layout.addWidget(QPushButton('DEL'), 1, 3)
+
+        self.button = QPushButton('=')
+        self.button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        layout.addWidget(self.button, 4, 3, 2, 1)
+
+        layout.addWidget(btnstart, 5, 0)
+        layout.addWidget(btnend, 5, 1)
 
         self.setLayout(layout)
 
+    def set_symbol(self, symbol):
+        def button_clicked():
+            output_text = self.text.text()
+            if output_text == '0':
+                output_text = symbol
+            else:
+                output_text += symbol
+            self.text.setText(output_text)
+        return button_clicked
+
+    def set_operation(self, operation):
+        def button_clicked():
+            output_operation = self.text.text() #весь текст
+            last_symbol = output_operation[-1] #ПОСЛЕДНИЙ символ
+            print('до проверки')
+
+            #проверка
+            if last_symbol == '+': #если последний символ - это +
+                print('проверка на операцию')
+                output_operation -= last_symbol#вычитается последний символ
+                output_operation += operation#прибавляется операция
+            else:#если последний символ - цифра
+                print('другое на число')
+                output_operation += operation#просто прибавляется операция
+            self.text.setText(output_operation)
+        return button_clicked
+
+
 app = QApplication(sys.argv)
-display = Display()
-display.show()
+calculator = Calculator()
+calculator.show()
 sys.exit(app.exec())
